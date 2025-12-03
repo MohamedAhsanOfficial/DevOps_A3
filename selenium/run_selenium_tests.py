@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.chrome import ChromeType
+from webdriver_manager.core.utils import ChromeType
 
 
 APP_URL = os.getenv("APP_URL", "http://127.0.0.1:5000")
