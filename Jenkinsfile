@@ -9,15 +9,15 @@ pipeline {
   stages {
     stage('Code Linting') {
       steps {
-        sh 'python -m pip install --upgrade pip'
-        sh 'pip install -r requirements.txt'
+        sh 'python3 -m pip install --upgrade pip'
+        sh 'python3 -m pip install -r requirements.txt'
         sh 'flake8 app tests'
       }
     }
 
     stage('Code Build') {
       steps {
-        sh 'python -m compileall app'
+        sh 'python3 -m compileall app'
       }
     }
 
