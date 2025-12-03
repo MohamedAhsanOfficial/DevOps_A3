@@ -9,21 +9,31 @@ pipeline {
   stages {
     stage('Code Linting') {
       steps {
-        sh 'python3 -m pip install --upgrade pip'
-        sh 'python3 -m pip install -r requirements.txt'
-        sh 'flake8 app tests'
+        sh '''
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          flake8 app tests
+        '''
       }
     }
 
     stage('Code Build') {
       steps {
-        sh 'python3 -m compileall app'
+        sh '''
+          . .venv/bin/activate
+          python -m compileall app
+        '''
       }
     }
 
     stage('Unit Testing') {
       steps {
-        sh 'pytest tests'
+        sh '''
+          . .venv/bin/activate
+          pytest tests
+        '''
       }
     }
 
