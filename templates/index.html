@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to the Notes Wall{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Capture a quick note</h1>
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h5">Add a new entry</h2>
+        <form method="post">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input id="title" name="title" class="form-control" maxlength="120" required />
+          </div>
+          <div class="mb-3">
+            <label for="body" class="form-label">Note</label>
+            <textarea id="body" name="body" class="form-control" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Save note</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <h2 class="h5">Recent notes</h2>
+    {% if notes %}
+    <div class="list-group">
+      {% for note in notes %}
+      <article class="list-group-item list-group-item-action shadow-sm mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="h6 mb-1">{{ note.title }}</h3>
+          <small class="text-muted">{{ note.created_at.strftime('%b %-d, %Y %H:%M') }}</small>
+        </div>
+        <p class="mb-0 text-secondary">{{ note.body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-muted">No notes yet. Start by sharing your first idea!</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

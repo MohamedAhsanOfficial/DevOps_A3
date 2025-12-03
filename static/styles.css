@@ -1,0 +1,8 @@
+body {
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.list-group-item {
+  border-radius: 0.75rem;
+}
