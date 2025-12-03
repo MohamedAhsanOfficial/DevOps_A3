@@ -4,6 +4,7 @@ pipeline {
     DOCKER_IMAGE = "ssdd-webapp:${env.BUILD_NUMBER}"
     SELENIUM_IMAGE = "ssdd-selenium:${env.BUILD_NUMBER}"
     APP_CONTAINER = "ssdd-app-${env.BUILD_ID}"
+    PYTHONPATH = "${env.WORKSPACE}"
   }
 
   stages {
