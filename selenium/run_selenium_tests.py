@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import subprocess
 import sys
 import time
 
@@ -9,7 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.utils import ChromeType
 
 
 APP_URL = os.getenv("APP_URL", "http://127.0.0.1:5000")
@@ -25,24 +23,10 @@ def build_driver():
     if chrome_bin:
         options.binary_location = chrome_bin
 
-    version = detect_chrome_version(chrome_bin)
-    driver_path = ChromeDriverManager(
-        version=version, chrome_type=ChromeType.CHROMIUM
-    ).install()
+    driver_path = os.getenv("CHROMEDRIVER_PATH", "/usr/bin/chromedriver")
+    if not os.path.exists(driver_path):
+        driver_path = ChromeDriverManager().install()
     return webdriver.Chrome(service=Service(driver_path), options=options)
-
-
-def detect_chrome_version(chrome_bin: str | None) -> str | None:
-    binary = chrome_bin or "/usr/bin/chromium"
-    try:
-        output = subprocess.check_output([binary, "--version"], text=True)
-    except subprocess.SubprocessError:
-        return None
-
-    if not output:
-        return None
-
-    return output.strip().split()[-1]
 
 
 def expect_contains(driver, query):
